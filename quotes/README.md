@@ -1,9 +1,6 @@
 # Quotes classification (war vs. peace)
 > Author: Gilles Schneider
 
-
-[![Build Status][nlp-image]][nlp-url]
-
 ## About
 Train a classifier on dataset of quotes. We only focus on war and peace quotes.
 
