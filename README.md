@@ -1,8 +1,6 @@
 # Natural language processing
 > Author: Gilles Schneider
 
-[![Build Status][nlp-image]][nlp-url]
-
 This repo contains all my projects related to Natural Language Processing. 
 
 ![](header.jpg)
