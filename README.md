@@ -6,7 +6,7 @@ This repo contains all my projects related to Natural Language Processing.
 ![](header.jpg)
 
 ## Projects
-1. [Quotes classification (war vs. peace)](./quotes/war_peace)
+1. [Quotes classification (war vs. peace)](./quotes/)
 2. [Find identity of a message sender (Facebook data)](/identity)
 
 ## Clone
