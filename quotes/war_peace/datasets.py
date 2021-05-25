@@ -1,4 +1,6 @@
 from copy import Error
+from nltk import tokenize
+from nltk.probability import FreqDist
 import pandas as pd
 import json
 import numpy as np
@@ -8,10 +10,14 @@ import warnings
 import re
 import random
 
-# Use DatasetTwoThemes in the following order
-# dataset = DatasetWarPeace()
-# dataset._clean()
-# dataset._filter()
+import nltk
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+from nltk.stem import PorterStemmer
+from nltk.tokenize.treebank import TreebankWordDetokenizer
+
+nltk.download('stopwords')
+nltk.download('punkt')
 
 class DatasetTwoThemes(object):
 
@@ -22,6 +28,7 @@ class DatasetTwoThemes(object):
         self._data = data # .json file
         self._len = 0 # len = number of quotes
         self._dataset = None # csv of quotes
+        self._stop_words = set(stopwords.words("english")) # store list of stopwords
 
     # extract war and peace quotes
     # save everything to a cleaned .csv
@@ -51,6 +58,49 @@ class DatasetTwoThemes(object):
 
         self._dataset = pd.read_csv(path, index_col=0).dropna()
         self._len = len(self._dataset)
+
+    def _apply_transformations(self, string, stop_words, stemming):
+
+        # stop_words: remove stop words
+        # stemming; 
+        tokenized = word_tokenize(string)
+        tokenized_no_stop_words = []
+        new_string = ""
+        # removing stop words
+        if stop_words:
+            for w in tokenized:
+                if w not in self._stop_words:
+                    tokenized_no_stop_words.append(w)
+            tokenized = tokenized_no_stop_words
+        
+        stemmed_words = []
+
+        # stemming: linguistic normalization
+        if stemming:
+            porter_stemmer = PorterStemmer()
+            for w in tokenized:
+                stemmed_words.append(porter_stemmer.stem(w))
+            tokenized = stemmed_words
+
+        return TreebankWordDetokenizer().detokenize(tokenized)
+
+    def _preprocess(self, path= "dataset.csv", overwrite=True, stop_words=True, stemming=False):
+        # Preprocess the quotes
+        # stop_words: remove stop words (noise), default:true
+        # stemming: activate stemming, default:false
+
+        if self._dataset is not None:
+            
+            self._dataset['quote'] = self._dataset['quote'].apply(lambda x: self._apply_transformations(x, stop_words, stemming))
+
+            if overwrite:
+                self._dataset.to_csv(path)
+
+            
+        else:
+            raise Error("Please generate cleaned dataset first using _clean_dataset()")
+
+        # stop_words
 
     def _filter(self, path = "dataset.csv", themes = ['war', 'peace'], 
                 show_stats = True, overwrite = True, reset_index = True):
@@ -101,8 +151,4 @@ class DatasetTwoThemes(object):
             
         else:
             raise Error("Please generate cleaned dataset first using _clean_dataset()")
-
-
-
-
 
