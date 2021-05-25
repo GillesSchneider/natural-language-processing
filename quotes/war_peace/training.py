@@ -21,7 +21,7 @@ Q500._clean()
 Q500._filter(themes=themes)
 dataset = Q500._dataset
 
-scores = {themes=themes}
+scores = {themes:themes}
 
 # training and testing 
 for i in tqdm.tqdm(range(sessions_nb)):
