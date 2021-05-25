@@ -27,7 +27,7 @@ pandas, numpy, random, sklearn, tqdm, nltk
 - Run datasets.py to generate the new Quotes-500 dataset
 
 ## Files
-1. [dataset.py](/datasets.py): compute a new dataset with two types of quotes from **Quote-500K** (see class [DatasetTwoThemes](/datasets.py) for more information)
+1. [dataset.py](/datasets.py): compute a new dataset with two types of quotes from **Quote-500K** (see class **DatasetTwoThemes** for more information)
 2. [training.py](/training.py): train and test a classifier on the new dataset
 
 ## New Quotes-500
@@ -54,7 +54,7 @@ The pipeline is described below:
 
 
 ## Results (peace vs war)
-A **Multi Layer Perceptron (MLP)** with 3 hidden layers of size 50 has been trained and tested on the new Quote-500k dataset. The training parameters remained the same accross the training/testing sessions. In the case of *war vs peace*, 623 peace quotes out of 2463 are randomly selected at each session. To cover as many peace quotes as possible, I ran 100 sessions for different configurations: same neural network, learning parameters, etc. but different preprocessing operations. 
+A **Multi Layer Perceptron (MLP)** with 1 hidden layers of size 50 has been trained and tested on the new Quote-500k dataset. The training parameters remained the same accross the training/testing sessions. In the case of *war vs peace*, 623 peace quotes out of 2463 are randomly selected at each session. To cover as many peace quotes as possible, I ran 100 sessions for different configurations: same neural network, learning parameters, etc. but different preprocessing operations. 
 
 | Number of Sessions       | Preprocessing Operations           | Avg Accuracy  (Test)|
 | ------------- |:-------------:| -----:|

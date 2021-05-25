@@ -7,7 +7,7 @@ This repo contains my projects related to **Natural Language Processing**.
 
 ## Projects
 
-1. [Quotes classification (war vs. peace)](/quotes/)
+1. [Quotes classification on two themes](/quotes/)
 
 ## Clone
 
