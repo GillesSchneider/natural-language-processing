@@ -13,15 +13,17 @@ from sklearn.pipeline import Pipeline
 import pandas as pd
 
 # parameters
-sessions_nb = 1
+sessions_nb = 100
 themes = ['peace', 'war']
+
 # load new Quote-500
 Q500 = DatasetTwoThemes()
 Q500._clean()
 Q500._filter(themes=themes)
+Q500._preprocess(stemming=True, stop_words=False)
 dataset = Q500._dataset
 
-scores = {themes:themes}
+scores = {}
 
 # training and testing 
 for i in tqdm.tqdm(range(sessions_nb)):
@@ -47,7 +49,7 @@ for i in tqdm.tqdm(range(sessions_nb)):
                             learning_rate_init=0.001,
                             hidden_layer_sizes= (3, 15),
                             max_iter=300,
-                            batch_size=64))
+                            batch_size=16))
                         ])
 
     text_clf = text_clf.fit(X_train, y_train)
@@ -60,5 +62,5 @@ for i in tqdm.tqdm(range(sessions_nb)):
 with open('scores.json', 'w') as fp:
     json.dump(scores, fp)
 
-
+print("avg:", np.mean(list(scores.values())))
 
