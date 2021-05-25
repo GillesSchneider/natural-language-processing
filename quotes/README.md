@@ -1,4 +1,4 @@
-# Quotes classification (two themes)
+# Quotes classification with two themes
 > Author: Gilles Schneider
 
 ## About
@@ -30,7 +30,7 @@ The new dataset is in a .csv file with three columns *quote*, *meta* and *themes
 
 ## Files
 1. [dataset.py](/datasets.py): compute a dataset with two quotes from **Quote-500K**
-2. [training.py](/training.py): train classifier on two quotes (war and peace by default)
+2. [training.py](/training.py): train the classifier, 10 sessions
 
 ## Pipeline
 The pipeline is described below.
@@ -48,7 +48,7 @@ pandas, numpy, random, sklearn, tqdm
 ```
 
 ## Results (peace vs war)
-The Multi Layer Perceptron (MLP) has 3 hidden layer of size 50, and has been trained on 300 iterations. 10 training and testing sessions. **Please note that quotes are randomly selected at each session.**. 
+The Multi Layer Perceptron (MLP) has 3 hidden layers of size 50, and has been trained on 300 iterations. 10 training and testing sessions. **Please note that quotes are randomly selected at each session.**
 
 | Session       | Parameters           | Accuracy  (Test)|
 | ------------- |:-------------:| -----:|
