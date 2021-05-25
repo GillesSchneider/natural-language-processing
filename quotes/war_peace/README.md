@@ -49,8 +49,8 @@ The influence of the preprocessing operations are studied in the section **Resul
 The pipeline is described below:
 1. *Apply preprocessing operations and balance the dataset by randomly selecting the same number of quotes.*
 2. [StratifiedKFold](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.StratifiedKFold.html#sklearn.model_selection.StratifiedKFold): *Split the dataset into a train set and test set, preserve the percentage of samples for each class (folds are balanced), 10 folds have been used.*
-3. [CountVectorizer()](https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html): *Training: convert a collection of quotes to a matrix of token counts*
-4. [TfidTransformer()](https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfTransformer.html): *Training: transform a count matrix to a normalized tf or tf-idf representation*
+3. [CountVectorizer()](https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html): *Training: convert a collection of quotes to a matrix of token counts.*
+4. [TfidTransformer()](https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfTransformer.html): *Training: transform a count matrix to a normalized tf or tf-idf representation.*
 5. [MLPClassifier()](https://scikit-learn.org/stable/modules/generated/sklearn.neural_network.MLPClassifier.html): *Multi-layer Perceptron classifier.*
 
 
