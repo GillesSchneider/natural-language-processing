@@ -47,17 +47,18 @@ The influence of the preprocessing operations are studied in the section **Resul
 
 ## Training Pipeline
 The pipeline is described below:
-
-1. [CountVectorizer()](https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html): *Convert a collection of quotes to a matrix of token counts*
-2. [TfidTransformer()](https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfTransformer.html): *Transform a count matrix to a normalized tf or tf-idf representation*
-3. [MLPClassifier()](https://scikit-learn.org/stable/modules/generated/sklearn.neural_network.MLPClassifier.html): *Multi-layer Perceptron classifier.*
+1. *Apply preprocessing operations and balance the dataset by randomly selecting the same number of quotes.*
+2. [StratifiedKFold](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.StratifiedKFold.html#sklearn.model_selection.StratifiedKFold): *Split the dataset into a train set and test set, preserve the percentage of samples for each class (folds are balanced), 10 folds have been used.*
+3. [CountVectorizer()](https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html): *Training: convert a collection of quotes to a matrix of token counts*
+4. [TfidTransformer()](https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfTransformer.html): *Training: transform a count matrix to a normalized tf or tf-idf representation*
+5. [MLPClassifier()](https://scikit-learn.org/stable/modules/generated/sklearn.neural_network.MLPClassifier.html): *Multi-layer Perceptron classifier.*
 
 
 ## Results (peace vs war)
-A **Multi Layer Perceptron (MLP)** with 1 hidden layers of size 15 has been trained and tested on the new Quote-500k dataset. The training parameters remained the same accross the training/testing sessions. In the case of *war vs peace*, 623 peace quotes out of 2463 are randomly selected at each session. To cover as many peace quotes as possible, I ran 100 sessions for different configurations: same neural network, learning parameters, etc. but different preprocessing operations. 
+A **Multi Layer Perceptron (MLP)** with 2 hidden layers of size 15 has been trained and tested on the new Quote-500k dataset. The training parameters remained the same accross the training/testing sessions. In the case of *war vs peace*, 623 peace quotes out of 2463 are randomly selected at each session. To cover as many peace quotes as possible, I ran 100 sessions for different configurations: same neural network, learning parameters, etc. but different preprocessing operations. 
 
 
-**Balanced Dataset (623 quotes/themes)**
+**Balanced Dataset**
 | Number of Sessions       | Preprocessing Operations           | Avg Accuracy  (Test)|
 | ------------- |:-------------:| -----:|
 | 100    | With stop words, no stemming |   0.8266 ± 0.0216
@@ -66,13 +67,6 @@ A **Multi Layer Perceptron (MLP)** with 1 hidden layers of size 15 has been trai
 | 100    | Without stop words, stemming |   0.8209 ± 0.02186
 
 ---
-**Unbalanced Dataset (623 war quotes and 2463 peace quotes)**
-| Number of Sessions       | Preprocessing Operations           | Avg Accuracy  (Test)|
-| ------------- |:-------------:| -----:|
-| 100    | With stop words, no stemming |   0.87 ± 0.01
-| 100    | With stop words, stemming |    0.87 ± 0.01
-| 100    | Without stop words, no stemming |   0.89 ± 0.01
-| 100    | Without stop words, stemming |   0.88 ± 0.01
 
 ## Meta
 Gilles Schneider – [My website](https://gillesschneider.github.io/me/)
