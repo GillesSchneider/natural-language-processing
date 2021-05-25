@@ -47,7 +47,7 @@ Please make sure that you have all the dependencies before using the code.
 pandas, numpy, random, sklearn, tqdm
 ```
 
-## Results
+## Results (peace vs war)
 The Multi Layer Perceptron (MLP) has 3 hidden layer of size 50, and has been trained on 300 iterations. 10 training and testing sessions. **Please note that quotes are randomly selected at each session.**. 
 
 | Session       | Parameters           | Accuracy  (Test)|
