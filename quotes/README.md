@@ -1,8 +1,8 @@
-# Quotes classification (war vs. peace)
+# Quotes classification (two themes)
 > Author: Gilles Schneider
 
 ## About
-Train a classifier on dataset of quotes. We only focus on war and peace quotes.
+Train a classifier on a dataset of quotes. We only on focus two different themes (war and peace here).
 
 Dataset used: [Quotes-500K](https://github.com/ShivaliGoel/Quotes-500K)
 
@@ -17,17 +17,25 @@ Year: 2018
 
 ## Installation
 - Download Dataset [here](https://goo.gl/R3Sa34)
-- Put **quote_dataset.csv** in [war_peace/datasets](/datasets)
-- Run **dataset_cleaning.py**
+- Put **quotes_dataset.csv** in /war_peace
+- Run **datasets.py** to generate the new Quotes-500 dataset
+
+
+## New Quotes-500
+The new dataset is in a .csv file with three columns *quote*, *meta* and *themes*. 
+
+- *quote*: quote
+- *meta*: author and title
+- *themes*: themes of the quote
 
 ## Files
-1. dataset_cleaning.py: add columns titles, add white space after *.,?!;:* and split word of the form *myName* into *my Name*.
-2. training.py: train classifier on war and peace quotes (MultiLayer Perceptron)
+1. [dataset.py](/datasets.py): compute a dataset with two quotes from **Quote-500K**
+2. [training.py](/training.py): train classifier on two quotes (war and peace by default)
 
 ## Pipeline
 The pipeline is described below.
 
-1. [CountVectorizer()](https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html): *Convert a collection of text documents to a matrix of token counts*
+1. [CountVectorizer()](https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html): *Convert a collection of quotes to a matrix of token counts*
 2. [TfidTransformer()](https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfTransformer.html): *Transform a count matrix to a normalized tf or tf-idf representation*
 3. [MLPClassifier()](https://scikit-learn.org/stable/modules/generated/sklearn.neural_network.MLPClassifier.html): *Multi-layer Perceptron classifier.*
 
@@ -36,16 +44,26 @@ The pipeline is described below.
 Please make sure that you have all the dependencies before using the code.
 
 ```sh
-pandas, numpy, random, sklearn
+pandas, numpy, random, sklearn, tqdm
 ```
 
-
 ## Results
-The Multi Layer Perceptron (MLP) has 3 hidden layer of size 50, and has been trained on 300 iterations. The accuracy is the mean accuracy computed on ten training/testing sessions. 
+The Multi Layer Perceptron (MLP) has 3 hidden layer of size 50, and has been trained on 300 iterations. 10 training and testing sessions. **Please note that quotes are randomly selected at each session.**. 
 
-| Model        | Parameters           | Accuracy  (Test)|
+| Session       | Parameters           | Accuracy  (Test)|
 | ------------- |:-------------:| -----:|
-| MLP     | LR: 0.01, Iter: 300 | 0.79 |
+| 0    | LR: 0.01, Iter: 300 |   0.84
+| 1    |  |   0.80
+| 2    |  |   0.80
+| 3    |  |   0.80
+| 4    |  |   0.82
+| 5    |  |   0.82
+| 6    |  |   0.85
+| 7    |  |   0.80
+| 8    |  |   0.81
+| 9    |  |   0.86
+
+
 
 
 ## Meta

@@ -1,13 +1,12 @@
 # Natural language processing
 > Author: Gilles Schneider
 
-This repo contains all my projects related to Natural Language Processing. 
+This repo contains my projects related to **Natural Language Processing**. 
 
 ![](header.jpg)
 
 ## Projects
 1. [Quotes classification (war vs. peace)](/quotes/)
-2. [Find identity of a message sender (Facebook data)](/identity)
 
 ## Clone
 
@@ -18,9 +17,9 @@ $ git clone https://github.com/GillesSchneider/natural-language-processing/
 
 ```
 
-## Development setup
+## Dependencies
 
-Please make sure that you have all the dependencies before using the code.
+Please make sure that you have all the dependencies installed.
 
 ```sh
 python 
