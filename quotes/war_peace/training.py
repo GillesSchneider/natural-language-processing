@@ -20,7 +20,7 @@ themes = ['peace', 'war']
 Q500 = DatasetTwoThemes()
 Q500._clean()
 Q500._filter(themes=themes)
-Q500._preprocess(stemming=True, stop_words=False)
+Q500._preprocess(stop_words=False, stemming=True)
 dataset = Q500._dataset
 
 scores = {}
@@ -32,14 +32,14 @@ for i in tqdm.tqdm(range(sessions_nb)):
     X_peace = dataset[dataset['themes'] == themes[1]]['quote'].values.tolist()
 
     # balance quotes
-    min_nb = np.min([len(X_war), len(X_peace)])
-    X_war = random.sample(X_war, min_nb)
-    X_peace = random.sample(X_peace, min_nb)
+    #min_nb = np.min([len(X_war), len(X_peace)])
+    #X_war = random.sample(X_war, min_nb)
+    #X_peace = random.sample(X_peace, min_nb)
 
     # generate train and test data
     X = X_war + X_peace
-    y = ['war']*min_nb + ['peace']*min_nb
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
+    y = ['war']*len(X_war) + ['peace']*len(X_peace)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
 
     # training
     text_clf = Pipeline([('vect', CountVectorizer()),
@@ -47,9 +47,9 @@ for i in tqdm.tqdm(range(sessions_nb)):
                         ('mlp', MLPClassifier(
                             random_state=1,
                             learning_rate_init=0.001,
-                            hidden_layer_sizes= (3, 15),
+                            hidden_layer_sizes= (4, 15),
                             max_iter=300,
-                            batch_size=16))
+                            batch_size=32))
                         ])
 
     text_clf = text_clf.fit(X_train, y_train)
