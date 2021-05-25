@@ -54,8 +54,10 @@ The pipeline is described below:
 
 
 ## Results (peace vs war)
-A **Multi Layer Perceptron (MLP)** with 1 hidden layers of size 50 has been trained and tested on the new Quote-500k dataset. The training parameters remained the same accross the training/testing sessions. In the case of *war vs peace*, 623 peace quotes out of 2463 are randomly selected at each session. To cover as many peace quotes as possible, I ran 100 sessions for different configurations: same neural network, learning parameters, etc. but different preprocessing operations. 
+A **Multi Layer Perceptron (MLP)** with 1 hidden layers of size 15 has been trained and tested on the new Quote-500k dataset. The training parameters remained the same accross the training/testing sessions. In the case of *war vs peace*, 623 peace quotes out of 2463 are randomly selected at each session. To cover as many peace quotes as possible, I ran 100 sessions for different configurations: same neural network, learning parameters, etc. but different preprocessing operations. 
 
+
+**Balanced Dataset (623 quotes/themes)**
 | Number of Sessions       | Preprocessing Operations           | Avg Accuracy  (Test)|
 | ------------- |:-------------:| -----:|
 | 100    | With stop words, no stemming |   0.8266 ± 0.0216
@@ -63,11 +65,16 @@ A **Multi Layer Perceptron (MLP)** with 1 hidden layers of size 50 has been trai
 | 100    | Without stop words, no stemming |   0.8218 ± 0.0229
 | 100    | Without stop words, stemming |   0.8209 ± 0.02186
 
-
-
+---
+**Unbalanced Dataset (623 war quotes and 2463 peace quotes)**
+| Number of Sessions       | Preprocessing Operations           | Avg Accuracy  (Test)|
+| ------------- |:-------------:| -----:|
+| 100    | With stop words, no stemming |   0.87 ± 0.01
+| 100    | With stop words, stemming |    0.87 ± 0.01
+| 100    | Without stop words, no stemming |   0.89 ± 0.01
+| 100    | Without stop words, stemming |   0.88 ± 0.01
 
 ## Meta
-
 Gilles Schneider – [My website](https://gillesschneider.github.io/me/)
 
 
