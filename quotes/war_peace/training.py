@@ -3,7 +3,7 @@ import random
 import tqdm
 import json
 from datasets import DatasetTwoThemes
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, StratifiedKFold, cross_val_score
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.neural_network import MLPClassifier
@@ -20,28 +20,23 @@ themes = ['peace', 'war']
 Q500 = DatasetTwoThemes()
 Q500._clean()
 Q500._filter(themes=themes)
-Q500._preprocess(stop_words=False, stemming=True)
+Q500._preprocess(stop_words=False, stemming=False)
 dataset = Q500._dataset
 
-scores = {}
+
 
 # training and testing 
 for i in tqdm.tqdm(range(sessions_nb)):
-    # get quotes
     X_war = dataset[dataset['themes'] == themes[0]]['quote'].values.tolist()
     X_peace = dataset[dataset['themes'] == themes[1]]['quote'].values.tolist()
 
-    # balance quotes
-    #min_nb = np.min([len(X_war), len(X_peace)])
-    #X_war = random.sample(X_war, min_nb)
-    #X_peace = random.sample(X_peace, min_nb)
+    # get min number of quotes
+    min_nb_quotes = np.min([len(X_peace), len(X_war)])
 
-    # generate train and test data
-    X = X_war + X_peace
-    y = ['war']*len(X_war) + ['peace']*len(X_peace)
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
+    X_war = random.sample(X_war, min_nb_quotes)
+    X_peace = random.sample(X_peace, min_nb_quotes)
 
-    # training
+    # estimator
     text_clf = Pipeline([('vect', CountVectorizer()),
                         ('tfidf', TfidfTransformer()),
                         ('mlp', MLPClassifier(
@@ -52,11 +47,13 @@ for i in tqdm.tqdm(range(sessions_nb)):
                             batch_size=32))
                         ])
 
-    text_clf = text_clf.fit(X_train, y_train)
+    X = X_war + X_peace
+    y = ['war']*len(X_war) + ['peace']*len(X_peace)
 
-    # testing
-    predicted2 = text_clf.predict(X_test)
-    scores['session' + str(i)] = np.around(np.mean(predicted2 == y_test), 2)
+    sss = StratifiedKFold(n_splits=10, shuffle=True, random_state=42)
+    scores = cross_val_score(text_clf, X, y, cv=sss)
+
+    print("session " + str(i), "mean:", scores.mean(), "std:", scores.std())
 
 # save results
 with open('scores.json', 'w') as fp:
